@@ -1,0 +1,31 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+
+def githubProperties = new Properties()
+githubProperties.load(new FileInputStream("github.properties"))
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+
+
+
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/peterkhp2203/PurchaseDummy")
+            credentials {
+                username = githubProperties.getProperty("GPR_USER")
+                password = githubProperties.getProperty("GPR_TOKEN")
+            }
+        }
+    }
+}
+rootProject.name = "PurchaseImport"
+include ':app'
